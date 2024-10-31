@@ -3,6 +3,7 @@ package com.weilai.elasticsearch.controller;
 import com.weilai.elasticsearch.entity.User;
 import com.weilai.elasticsearch.repository.UserRepository;
 import com.weilai.elasticsearch.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private  UserService userService;
+    private UserService userService;
 
     @Autowired
     private UserRepository userRepository;
@@ -40,7 +41,12 @@ public class UserController {
 
 
     @GetMapping("/searchByName")
-    public List<User> searchByName(@RequestParam String Name) {
-        return userRepository.findByName(Name);
+    public List<User> searchByName(@RequestParam String name) {
+        return userRepository.findByName(name);
+    }
+
+    @GetMapping("/searchByNameLike")
+    public List<User> searchByNameLike(@RequestParam String name) {
+        return userRepository.findByNameLike(name);
     }
 }

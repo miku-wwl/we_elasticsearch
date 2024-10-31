@@ -9,4 +9,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends ElasticsearchRepository<User, String> {
     List<User> findByName(String name);
+
+
+    List<User> findByNameLike(String name);
 }
