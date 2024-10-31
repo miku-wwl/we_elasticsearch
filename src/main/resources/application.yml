@@ -1,0 +1,3 @@
+spring:
+  elasticsearch:
+    uris: 117.72.69.172:9200
