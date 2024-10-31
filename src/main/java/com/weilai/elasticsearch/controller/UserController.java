@@ -1,7 +1,9 @@
 package com.weilai.elasticsearch.controller;
 
 import com.weilai.elasticsearch.entity.User;
+import com.weilai.elasticsearch.repository.UserRepository;
 import com.weilai.elasticsearch.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,11 +14,11 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private final UserService userService;
+    @Autowired
+    private  UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
@@ -34,5 +36,11 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable("id") String id) {
         userService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+
+    @GetMapping("/searchByName")
+    public List<User> searchByName(@RequestParam String Name) {
+        return userRepository.findByName(Name);
     }
 }
